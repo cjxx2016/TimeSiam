@@ -1,0 +1,102 @@
+{
+    // 使用 IntelliSense 以得知可用的屬性。
+    // 暫留以檢視現有屬性的描述。
+    // 如需詳細資訊，請瀏覽: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "py:run iTransformer Exchange 96 pro train",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--task_name", "timesiam",
+                "--is_training", "0",
+                "--root_path", "./dataset/exchange_rate/",
+                "--data_path", "exchange_rate.csv",
+                "--model_id", "Exchange",
+                "--model", "iTransformer", // Replacing $model_name with "iTransformer"
+                "--data", "Exchange",
+                "--features", "M",
+                "--seq_len", "1024", // Replacing $pretrain_seq_len with "96"
+                "--e_layers", "2",
+                "--enc_in", "8",
+                "--dec_in", "8",
+                "--c_out", "8",
+                "--d_model", "128",
+                "--d_ff", "128",
+                "--mask_rate", "0.25", // Replacing $mask_rate with "0.25"
+                "--sampling_range", "6", // Replacing $sampling_range with "6"
+                "--lineage_tokens", "2", // Replacing $lineage_tokens with "2"
+                "--train_epochs", "50", // Replacing $train_epochs with "50"
+                "--num_workers", "0"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "py:run iTransformer exchange 96 Fine Tune",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--task_name", "fine_tune",
+                "--is_training", "1",
+                "--root_path", "./dataset/exchange_rate/",
+                "--data_path", "exchange_rate.csv",
+                "--model_id", "Exchange",
+                "--model", "iTransformer", // Replacing $model_name with "iTransformer"
+                "--data", "Exchange",
+                "--features", "M",
+                "--seq_len", "1024",
+                "--label_len", "48",
+                "--pred_len", "96", // Replacing $pred_len with "96"
+                "--e_layers", "2",
+                "--enc_in", "8",
+                "--dec_in", "8",
+                "--c_out", "8",
+                "--d_model", "128",
+                "--d_ff", "128",
+                "--learning_rate", "0.001",
+                "--lineage_tokens", "2", // Replacing $lineage_tokens with "2"
+                "--representation_using", "concat", // Replacing $representation_using with "concat"
+                "--load_checkpoints", "./outputs/pretrain_checkpoints/Exchange/ckpt_best.pth", // Replace this with your actual checkpoint path
+                "--num_workers", "0"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "py:run iTransformer exchange 96",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--task_name", "long_term_forecast",
+                "--is_training", "1",
+                "--root_path", "./dataset/exchange_rate/",
+                "--data_path", "exchange_rate.csv",
+                "--model_id", "Exchange",
+                "--model", "iTransformer", // Replacing $model_name with "iTransformer"
+                "--data", "Exchange",
+                "--features", "M",
+                "--seq_len", "1024",
+                "--label_len", "48",
+                "--pred_len", "96", // Replacing $pred_len with "96"
+                "--e_layers", "2",
+                "--enc_in", "8",
+                "--dec_in", "8",
+                "--c_out", "8",
+                "--d_model", "128",
+                "--d_ff", "128",
+                "--learning_rate", "0.001",
+                "--lineage_tokens", "2", // Replacing $lineage_tokens with "2"
+                "--representation_using", "concat", // Replacing $representation_using with "concat"
+                "--load_checkpoints", "./outputs/pretrain_checkpoints/Exchange/ckpt_best.pth", // Replace this with your actual checkpoint path
+                "--num_workers", "0"
+            ],
+            "justMyCode": false
+        }                
+    ]
+}
